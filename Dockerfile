@@ -5,7 +5,7 @@ COPY --from=0 /opt /opt
 
 # install ARM cross compiler
 RUN apt-get update && \
-	apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc libc6-i386 bzip2 lib32z1
+	DEBIAN_FRONTEND=noninteractive apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc libc6-i386 bzip2 lib32z1 dvb-apps libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev
 
 # install MIPS arch: openwrt and enigma based
 RUN cd /opt && \
@@ -21,7 +21,14 @@ RUN : && \
 	tar xvf libdvbcsa-1.1.0.tar.gz && \
 	cd libdvbcsa-1.1.0 && \
 	./configure --host=arm-linux-gnueabihf && \
-	make install && \
+	make  && \
 	cp ./src/.libs/libdvbcsa.a /usr/lib/arm-linux-gnueabi && \
 	cp ./src/.libs/libdvbcsa.a /usr/lib/arm-linux-gnueabihf && \
+        make clean && \
+        ./configure && \
+        make install && \
 	cd .. && rm -rf kibdvbcsa*
+
+RUN git clone https://github.com/vdr-projects/vdr-plugin-mcli && \
+	cd vdr-plugin-mcli && \
+	make install
