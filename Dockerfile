@@ -27,7 +27,13 @@ RUN : && \
         make clean && \
         ./configure --prefix=/usr && \
         make install && \
-	cd .. && rm -rf libdvbcsa*gz
+	cd .. && rm -rf libdvbcsa*gz && \
+        curl -L -s https://www.openssl.org/source/openssl-1.1.1n.tar.gz  |  tar xzf - && \
+        cd openssl-1.1.1n && ./Configure --cross-compile-prefix=arm-linux-gnueabihf- --prefix=/usr/arm-linux-gnueabihf/ linux-generic32 && \
+        make install && \
+        cd .. && rm -rf libdvbcsa*gz && \
+        rm -rf openssl*
+ 
 
 RUN git clone https://github.com/vdr-projects/vdr-plugin-mcli && \
 	cd vdr-plugin-mcli && \
