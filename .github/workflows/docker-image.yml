@@ -14,10 +14,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+    -
+      name: Login to DockerHub
+      uses: docker/login-action@v1
       with:
-        username: ${{ github.actor }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: catalinii/minisatip-build-image
-        tag_with_ref: true
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+    -
+        # Push to master branch - push "latest" tag
+      name: Build and Push (latest)
+      uses: docker/build-push-action@v3
+      with:
+          context: .
+          push: true
+          tags: catalinii/minisatip-build-image:latest
+          secrets: |
+            "TOKEN2=${{ secrets.COVERITY_SCAN_TOKEN }}"
+
+#        TOKEN2: ${{ secrets.COVERITY_SCAN_TOKEN }}
+
