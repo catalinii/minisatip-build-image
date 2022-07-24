@@ -6,7 +6,7 @@ ARG TOKEN2
 
 # install ARM cross compiler
 RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc bzip2 dvb-apps libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip
+	DEBIAN_FRONTEND=noninteractive apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc bzip2 dvb-apps libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip libc6-i386 lib32z1 libdvbcsa-dev curl libssl-dev
 
 # install MIPS arch: openwrt and enigma based
 RUN cd /opt && \
