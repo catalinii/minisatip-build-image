@@ -1,12 +1,12 @@
 FROM jalle19/centos7-stlinux24:latest
 
-FROM ubuntu:latest
+FROM ubuntu:22.04
 COPY --from=0 /opt /opt
 ARG TOKEN2
 
 # install ARM cross compiler
 RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc bzip2 dvb-apps libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip libc6-i386 lib32z1 libdvbcsa-dev curl libssl-dev
+	DEBIAN_FRONTEND=noninteractive apt-get install -f -y wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-arm-linux-gnueabihf gcc bzip2 dvb-apps libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip libc6-i386 lib32z1 curl libssl-dev
 
 # install MIPS arch: openwrt and enigma based
 RUN cd /opt && \
@@ -16,9 +16,9 @@ RUN cd /opt && \
 
 # install DVBCSA for ARM ... the other archs have it already in the toolchain
 RUN : && \ 
-	wget https://download.videolan.org/pub/videolan/libdvbcsa/1.1.0/libdvbcsa-1.1.0.tar.gz && \
-	tar xvf libdvbcsa-1.1.0.tar.gz && \
-	cd libdvbcsa-1.1.0 && \
+	git clone https://github.com/catalinii/libdvbcsa && \
+	cd libdvbcsa && \
+        ./bootstrap && \
 	./configure --host=arm-linux-gnueabihf && \
 	make  && \
 	cp ./src/.libs/libdvbcsa.a /usr/lib/arm-linux-gnueabi && \
