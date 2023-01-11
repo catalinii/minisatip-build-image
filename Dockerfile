@@ -11,8 +11,7 @@ RUN apt-get update && \
 # install MIPS arch: openwrt and enigma based
 RUN cd /opt && \
 	wget https://minisatip.org/tmp/mips.tar.bz2 && tar -xf mips.tar.bz2 && \
-        wget https://minisatip.org/tmp/openwrt.tar.bz2 && tar -xf openwrt.tar.bz2 && \
-        rm -rf *bz2
+        wget https://minisatip.org/tmp/openwrt.tar.bz2 && tar -xf openwrt.tar.bz2
 
 # install DVBCSA for ARM ... the other archs have it already in the toolchain
 RUN : && \ 
