@@ -1,6 +1,6 @@
 FROM jalle19/centos7-stlinux24:latest
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 COPY --from=0 /opt /opt
 ARG TOKEN2
 
