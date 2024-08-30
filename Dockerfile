@@ -11,7 +11,7 @@ RUN apt-get update && \
 # install MIPS arch: openwrt and enigma based
 RUN mkdir -p /opt/zig && \
 	cd /opt/zig && \
-	curl -L -s https://ziglang.org/builds/zig-linux-x86_64-0.11.0-dev.3664+0f5aff344.tar.xz  |  tar xJf - --strip-components=1
+	curl -L -s https://ziglang.org/download/0.13.0/zig-0.13.0.tar.xz  |  tar xJf - --strip-components=1
 
 # install DVBCSA for ARM ... the other archs have it already in the toolchain
 COPY build_libraries.sh .
