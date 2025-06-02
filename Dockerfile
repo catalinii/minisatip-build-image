@@ -1,12 +1,12 @@
 FROM jalle19/centos7-stlinux24:latest
 
-FROM ubuntu:lunar
+FROM ubuntu:noble
 COPY --from=0 /opt /opt
 ARG TOKEN2
 
 # install ARM cross compiler
 RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get install -f -y clang wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-multilib-mipsel-linux-gnu gcc-arm-linux-gnueabihf gcc bzip2 libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip curl
+	DEBIAN_FRONTEND=noninteractive apt-get install -f -y clang libclang-cpp18 wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-multilib-mipsel-linux-gnu gcc-arm-linux-gnueabihf gcc bzip2 libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip curl
 
 # install MIPS arch: openwrt and enigma based
 RUN mkdir -p /opt/zig && \
