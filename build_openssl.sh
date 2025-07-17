@@ -7,5 +7,5 @@ DIR=/tmp/
 cd $DIR/openssl
 ./Configure $@
 make -j $(nproc)
-make install
+make install_sw
 make clean
