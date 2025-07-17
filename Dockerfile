@@ -1,7 +1,5 @@
-FROM jalle19/centos7-stlinux24:latest
-
 FROM ubuntu:noble
-COPY --from=0 /opt /opt
+
 ARG TOKEN2
 
 # install ARM cross compiler
@@ -23,4 +21,4 @@ RUN --mount=type=secret,id=TOKEN2 \
 	wget https://scan.coverity.com/download/cxx/linux64 --post-data "token=$(cat /etc/coverity)&project=minisatip2" -O cov-analysis-linux64.tar.gz && \
 	tar xzf cov-analysis-linux64.tar.gz --strip 1 -C /cov-analysis-linux64
 
-ENV PATH="$PATH:/opt/STM/STLinux-2.4/devkit/sh4/bin:/opt/zig:/cov-analysis-linux64/bin"
+ENV PATH="$PATH:/opt/zig:/cov-analysis-linux64/bin"
