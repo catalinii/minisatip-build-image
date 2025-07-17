@@ -7,27 +7,17 @@ git clone https://github.com/catalinii/libdvbcsa
 curl -L -s https://www.openssl.org/source/openssl-1.1.1n.tar.gz  |  tar xzf - -C /tmp/openssl --strip-components=1
 git clone https://github.com/vdr-projects/libnetceiver/
 
-declare -a flags
-flags[0]="--host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf/,--cross-compile-prefix=arm-linux-gnueabihf- --prefix=/usr/arm-linux-gnueabihf/ linux-generic32"
-flags[1]="--host=mipsel-linux-gnu --prefix=/sysroot/mipsel,--cross-compile-prefix=mipsel-linux-gnu- --prefix=/sysroot/mipsel linux-generic32"
-flags[1]=",linux-generic64"
-for flag in "${flags[@]}"
-do
-        IFS="," read -r -a arr <<< "${flag}"
-        cd $DIR/libdvbcsa
-        ./bootstrap
-        ./configure ${arr[0]}
-        make -j $(nproc)
-        make install
-        make clean
-        cd $DIR/openssl
-        ./Configure ${arr[1]}
-        make -j $(nproc)
-        make install
-        make clean
-done
+# Build libdvbcsa
+./build_libdvbcsa.sh
+./build_libdvbcsa.sh --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf/
+./build_libdvbcsa.sh --host=mipsel-linux-gnu --prefix=/usr/mipsel-linux-gnu/
 
-cd $DIR/libnetceiver
-make install
+# Build openssl
+./build_openssl.sh linux-generic64
+./build_openssl.sh --cross-compile-prefix=arm-linux-gnueabihf- --prefix=/usr/arm-linux-gnueabihf/ linux-generic32
+./build_openssl.sh --cross-compile-prefix=mipsel-linux-gnu- --prefix=/usr/mipsel-linux-gnu/ linux-generic32
+
+# Build netceiver (x64 only)
+./build_netceiver.sh
 
 ldconfig
