@@ -14,15 +14,17 @@ flags[1]=",linux-generic64"
 for flag in "${flags[@]}"
 do
         IFS="," read -r -a arr <<< "${flag}"
-        cd $DIR/libdvbcsa 
-        ./bootstrap 
+        cd $DIR/libdvbcsa
+        ./bootstrap
         ./configure ${arr[0]}
-        make install 
-        make clean
-	cd $DIR/openssl
-        ./Configure ${arr[1]}
+        make -j $(nproc)
         make install
-        make clean	
+        make clean
+        cd $DIR/openssl
+        ./Configure ${arr[1]}
+        make -j $(nproc)
+        make install
+        make clean
 done
 
 cd $DIR/libnetceiver
