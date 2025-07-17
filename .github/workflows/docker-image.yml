@@ -28,8 +28,3 @@ jobs:
           context: .
           push: true
           tags: catalinii/minisatip-build-image:latest
-          secrets: |
-            "TOKEN2=${{ secrets.COVERITY_SCAN_TOKEN }}"
-
-#        TOKEN2: ${{ secrets.COVERITY_SCAN_TOKEN }}
-

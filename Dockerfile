@@ -1,7 +1,5 @@
 FROM ubuntu:noble
 
-ARG TOKEN2
-
 # install ARM cross compiler
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -f -y clang libclang-cpp18 wget git binutils-arm-linux-gnueabihf autoconf automake make libtool gcc-multilib-mipsel-linux-gnu gcc-arm-linux-gnueabihf g++-multilib-mipsel-linux-gnu g++-arm-linux-gnueabihf gcc bzip2 libssl-dev pkg-config g++ vdr-dev zlib1g-dev libxml2-dev curl vim zip curl
@@ -15,10 +13,4 @@ RUN mkdir -p /opt/zig && \
 COPY build_libraries.sh .
 RUN ./build_libraries.sh
 
-RUN --mount=type=secret,id=TOKEN2 \
-    cp /run/secrets/TOKEN2 /etc/coverity && \
-	mkdir /cov-analysis-linux64 && \
-	wget https://scan.coverity.com/download/cxx/linux64 --post-data "token=$(cat /etc/coverity)&project=minisatip2" -O cov-analysis-linux64.tar.gz && \
-	tar xzf cov-analysis-linux64.tar.gz --strip 1 -C /cov-analysis-linux64
-
-ENV PATH="$PATH:/opt/zig:/cov-analysis-linux64/bin"
+ENV PATH="$PATH:/opt/zig"
