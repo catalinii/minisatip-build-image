@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, minisatip_1.3 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, minisatip_1.3 ]
 
 jobs:
 
@@ -21,13 +21,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
     -
-        # Push to master branch - push "latest" tag
       name: Build and Push (latest)
       uses: docker/build-push-action@v3
       with:
           context: .
           push: true
-          tags: catalinii/minisatip-build-image:latest
+          tags: catalinii/minisatip-build-image:minisatip_1.3
           secrets: |
             "TOKEN2=${{ secrets.COVERITY_SCAN_TOKEN }}"
 
