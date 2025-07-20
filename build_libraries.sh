@@ -10,7 +10,7 @@ git clone https://github.com/vdr-projects/libnetceiver/
 declare -a flags
 flags[0]="--host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf/,--cross-compile-prefix=arm-linux-gnueabihf- --prefix=/usr/arm-linux-gnueabihf/ linux-generic32"
 flags[1]="--host=mipsel-linux-gnu --prefix=/sysroot/mipsel,--cross-compile-prefix=mipsel-linux-gnu- --prefix=/sysroot/mipsel linux-generic32"
-flags[1]=",linux-generic64"
+flags[2]=",linux-generic64"
 for flag in "${flags[@]}"
 do
         IFS="," read -r -a arr <<< "${flag}"
