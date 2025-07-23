@@ -14,4 +14,5 @@ RUN apt-get update && \
 
 # install libraries for all architectures
 COPY build_*.sh .
+
 RUN ./build_libraries.sh
