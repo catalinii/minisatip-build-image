@@ -12,6 +12,12 @@ RUN apt-get update && \
 	binutils-mipsel-linux-gnu gcc-multilib-mipsel-linux-gnu g++-multilib-mipsel-linux-gnu && \
 	rm -rf /var/apt/lists/*
 
+# install semver so we can figure out the next version when building binaries
+RUN sh -c 'curl -fsSL https://deb.nodesource.com/setup_22.x | bash -' && \
+	apt-get -y install nodejs && \
+	npm install -g semver && \
+	rm -rf /var/apt/lists/*
+
 # install libraries for all architectures
 COPY build_*.sh .
 
