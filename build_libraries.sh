@@ -4,7 +4,7 @@ DIR=/tmp/
 cd $DIR
 mkdir -p $DIR/openssl
 git clone https://github.com/catalinii/libdvbcsa 
-curl -L -s https://www.openssl.org/source/openssl-1.1.1n.tar.gz | tar xzf - -C /tmp/openssl --strip-components=1
+curl -L -s https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz | tar xzf - -C /tmp/openssl --strip-components=1
 git clone https://github.com/vdr-projects/libnetceiver/
 
 # Build libdvbcsa
