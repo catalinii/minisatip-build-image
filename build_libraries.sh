@@ -12,6 +12,9 @@ git clone https://github.com/Haivision/srt
 mkdir -p $DIR/libatomic
 curl -L -s https://gcc.gnu.org/pub/gcc/releases/gcc-14.2.0/gcc-14.2.0.tar.xz | tar xJf - -C /tmp/libatomic --strip-components=1
 
+# Build LLVM clang cross-compiler for MIPS r1
+INSTALL_PREFIX=/opt/clang-mips $BASEDIR/build_llvm_mips.sh
+
 # Build libdvbcsa
 $BASEDIR/build_libdvbcsa.sh
 $BASEDIR/build_libdvbcsa.sh --host=arm-linux-gnueabihf --prefix=/usr/arm-linux-gnueabihf/
