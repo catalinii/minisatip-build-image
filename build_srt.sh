@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DIR=/tmp/
+DIR=${BUILD_DIR:-/tmp}/
 
 cd $DIR/srt
 
