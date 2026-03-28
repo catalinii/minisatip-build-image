@@ -1,12 +1,31 @@
 #! /bin/bash -e
-DIR=/tmp/
+BUILD_DIR=/tmp
 BASEDIR=$(dirname "$0")
 
-cd $DIR
+# Parse --build-dir argument if provided
+for arg in "$@"; do
+  case "$arg" in
+    --build-dir=*)
+      BUILD_DIR="${arg#--build-dir=}"
+      ;;
+    --build-dir)
+      BUILD_DIR_SET=true
+      ;;
+  esac
+done
+
+# Handle --build-dir with separate value
+if [[ "${BUILD_DIR_SET:-}" == "true" ]]; then
+  shift
+  BUILD_DIR="$1"
+  shift
+fi
+
+cd $BUILD_DIR
 rm -rf srt libdvbcsa libnetceiver openssl
-mkdir -p $DIR/openssl
+mkdir -p $BUILD_DIR/openssl
 git clone https://github.com/catalinii/libdvbcsa
-curl -L -s https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz | tar xzf - -C /tmp/openssl --strip-components=1
+curl -L -s https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz | tar xzf - -C $BUILD_DIR/openssl --strip-components=1
 git clone https://github.com/vdr-projects/libnetceiver/
 git clone https://github.com/Haivision/srt
 
