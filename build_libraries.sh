@@ -25,7 +25,7 @@ export BUILD_DIR
 cd $BUILD_DIR
 rm -rf srt libdvbcsa libnetceiver openssl
 mkdir -p $BUILD_DIR/openssl
-git clone https://github.com/catalinii/libdvbcsa
+git clone https://github.com/oe-mirrors/libdvbcsa
 curl -L -s https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz | tar xzf - -C $BUILD_DIR/openssl --strip-components=1
 git clone https://github.com/vdr-projects/libnetceiver/
 git clone https://github.com/Haivision/srt
